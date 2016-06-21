@@ -791,6 +791,31 @@ public class InAppBrowser extends CordovaPlugin {
          * @param webView
          * @param url
          */
+       private void launchUri(String uriString) {
+        Uri uri = Uri.parse(uriString);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+       }
+       private void confirmLineInstall(Context context) {
+        new AlertDialog.Builder(context)
+        .setTitle("LINE Pay")
+        .setMessage(getString(R.String.linepay_confirm))
+        .setCancelable(false)
+        .setPositiveButton(getString(R.String.linepay_install), new
+        DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialog, int which) {
+                      launchUri("market://details?id=jp.naver.line.android");
+                      }
+              })
+               .setNegativeButton(getString(R.String.linepay_cancel), new
+              DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialog, int which) {
+               }
+               })
+               .show();
+       }
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String url) {
                if(url.startsWith("line:")){
@@ -809,31 +834,8 @@ public class InAppBrowser extends CordovaPlugin {
                      } catch (NameNotFoundException e) {
                         confirmLineInstall(context);
                      }
-                     private void confirmLineInstall(Context context) {
-                      new AlertDialog.Builder(context)
-                      .setTitle("LINE Pay")
-                      .setMessage(getString(R.String.linepay_confirm))
-                      .setCancelable(false)
-                      .setPositiveButton(getString(R.String.linepay_install), new
-                     DialogInterface.OnClickListener() {
-                      @Override
-                      public void onClick(DialogInterface dialog, int which) {
-                      launchUri("market://details?id=jp.naver.line.android");
-                      }
-                      })
-                      .setNegativeButton(getString(R.String.linepay_cancel), new
-                     DialogInterface.OnClickListener() {
-                      @Override
-                      public void onClick(DialogInterface dialog, int which) {
-                      }
-                      })
-                      .show();
-                     }
-                     private void launchUri(String uriString) {
-                      Uri uri = Uri.parse(uriString);
-                      Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                      startActivity(intent);
-                     }
+                     
+                    
                }else if (url.startsWith(WebView.SCHEME_TEL)) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
