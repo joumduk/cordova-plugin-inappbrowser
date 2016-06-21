@@ -449,7 +449,7 @@ public class InAppBrowser extends CordovaPlugin {
         InputMethodManager imm = (InputMethodManager)this.cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
 
-        if (!url.startsWith("http") && !url.startsWith("file:")) {
+        if (!url.startsWith("http") && !url.startsWith("file:") && !url.startsWith("line:")) {
             this.inAppWebView.loadUrl("http://" + url);
         } else {
             this.inAppWebView.loadUrl(url);
@@ -862,7 +862,7 @@ public class InAppBrowser extends CordovaPlugin {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
             String newloc = "";
-            if (url.startsWith("http:") || url.startsWith("https:") || url.startsWith("file:")) {
+            if (url.startsWith("http:") || url.startsWith("https:") || url.startsWith("file:")|| url.startsWith("line:")) {
                 newloc = url;
             }
             else
