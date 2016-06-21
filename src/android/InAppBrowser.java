@@ -820,7 +820,7 @@ public class InAppBrowser extends CordovaPlugin {
         public boolean shouldOverrideUrlLoading(WebView webView, String url) {
                if(url.startsWith("line:")){
                       int linePaySupportedVersion = 230;
-                     String paymentUrl = "..."; // This is "paymentUrl.app" URL String.
+                     String paymentUrl = url; // This is "paymentUrl.app" URL String.
                      Context context = cordova.getActivity();
                      try {
                       PackageManager pm = context.getPackageManager();
